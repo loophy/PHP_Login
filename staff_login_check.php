@@ -19,8 +19,8 @@ try
 	$sql='SELECT name FROM mst_staff WHERE code=? AND password=?';
 	$stmt=$dbh->prepare($sql);
 	$data[]=$staff_code;
-	$datt[]=$staff_pass;
-	$stmt->exxecute($data);
+	$data[]=$staff_pass;
+	$stmt->execute($data);
 
 	$dbh=null;
 
@@ -33,6 +33,10 @@ try
 	}
 	else
 	{
+		session_start();
+		$_SESSION['login']=1;
+		$_SESSION['staff_code']=$staff_code;
+		$_SESSION['staff_name']=$rec['name'];
 		header('Location:staff_top.php');
 	}
 }
